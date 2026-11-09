@@ -113,12 +113,48 @@
   .todo-form .start{margin-left:0}
   .todos{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:2px;font-size:15px}
   .todos:empty{display:none}
+  #todoChips .chip{min-height:36px;padding:4px 12px;font-size:13.5px}
   .todos li{display:flex;align-items:center;gap:4px}
   .todos label{flex:1;min-width:0;display:flex;gap:8px;align-items:center;min-height:40px;overflow-wrap:anywhere;cursor:pointer}
   .todos input{width:20px;height:20px;flex:none;accent-color:var(--wood)}
   .todos .done{text-decoration:line-through;color:var(--muted)}
   .todos .del{width:36px;height:36px;flex:none;color:var(--muted);font-size:18px;border-radius:50%}
   .todos .del:hover{background:var(--tint)}
+
+  /* 걱정 연등 */
+  .worry-card p{margin:4px 0 10px;font-size:14px;color:var(--muted)}
+  .worry-card .btn{display:block;margin-left:auto}
+  .choice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .choice button{word-break:keep-all;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 10px;min-height:76px;font-size:15px;font-weight:700;line-height:1.35}
+  .choice button:hover{background:var(--tint)}
+  .choice small{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+  .worry-echo{margin-top:6px!important;color:var(--ink)!important;overflow-wrap:anywhere}
+  .sheet .start.solo{margin-left:auto}
+  .lantern-scene{position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;background:rgba(58,38,24,.34);animation:sceneIn .4s ease-out;overflow:hidden}
+  @keyframes sceneIn{from{opacity:0}}
+  .lantern{position:relative;width:176px;height:190px;margin-top:-30px;animation:sway 3s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(255,190,110,.75))}
+  @keyframes sway{50%{transform:translateX(5px) rotate(1.5deg)}}
+  .lantern-body{position:absolute;inset:0;border-radius:48%/50%;background:radial-gradient(circle at 50% 55%,#fff3cf,#f9bd93 68%,#ee9c8a);border:2px solid #c8a77f;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px 24px;font-size:15px;font-weight:700;color:#5b3a26;line-height:1.35;overflow-wrap:anywhere}
+  .burnable{position:absolute;inset:0}
+  .burnable::before{content:"";position:absolute;left:50%;top:-11px;width:66px;height:15px;margin-left:-33px;border-radius:5px;background:#8a5a34;z-index:1}
+  .burnable::after{content:"";position:absolute;left:50%;bottom:-34px;width:12px;height:36px;margin-left:-6px;border-radius:2px 2px 6px 6px;background:repeating-linear-gradient(90deg,#b5483f 0 2px,#cf6a5f 2px 4px)}
+  .l-msg{font-family:var(--brush);font-size:32px;line-height:1.15;color:#fff8ea;text-align:center;padding:8px 20px;margin:0 14px;border-radius:16px;background:rgba(58,38,24,.62);word-break:keep-all;opacity:0;animation:msgIn .7s ease-out forwards}
+  @keyframes msgIn{to{opacity:1}}
+  .burn .burnable{animation:burnUp 3s linear .5s both}
+  @keyframes burnUp{from{clip-path:inset(-20px -20px -40px -20px)}to{clip-path:inset(-20px -20px calc(100% + 20px) -20px)}}
+  .flame{display:none;position:absolute;left:-10px;right:-10px;height:64px;pointer-events:none}
+  .burn .flame{display:block;animation:flameUp 3s linear .5s both}
+  @keyframes flameUp{0%{bottom:-46px;opacity:0}6%{opacity:1}92%{opacity:1}100%{bottom:160px;opacity:0}}
+  .flame::after{content:"";position:absolute;left:8px;right:8px;bottom:12px;height:9px;border-radius:50%;background:#2c1a10;filter:blur(2px)}
+  .flame i{position:absolute;bottom:14px;border-radius:50% 50% 45% 45%;background:radial-gradient(ellipse at 50% 80%,#fff0b0,#ffb13d 45%,#ef5a24 75%,transparent 78%);transform-origin:50% 100%;animation:flick .22s ease-in-out infinite alternate}
+  .flame i:nth-child(1){left:4%;width:42%;height:48px}
+  .flame i:nth-child(2){left:30%;width:46%;height:64px;animation-duration:.17s}
+  .flame i:nth-child(3){left:58%;width:40%;height:44px;animation-duration:.27s}
+  @keyframes flick{to{transform:scale(.86,1.14) skewX(5deg)}}
+  .ember{position:absolute;left:50%;top:48%;width:5px;height:5px;border-radius:50%;background:#ffb13d;box-shadow:0 0 6px #ff8a2a;opacity:0;animation:ember 1.7s ease-out both}
+  @keyframes ember{0%{opacity:0;transform:translate(var(--x),40px)}15%{opacity:1}100%{opacity:0;transform:translate(calc(var(--x) + var(--dx)),-210px) scale(.4)}}
+  .fly .lantern{animation:flyUp 3.2s ease-in .4s both}
+  @keyframes flyUp{0%{transform:none}30%{transform:translate(8px,-70px) rotate(2deg) scale(.92)}60%{transform:translate(-8px,-210px) rotate(-2deg) scale(.68)}100%{transform:translate(6px,-470px) rotate(1deg) scale(.3);opacity:.2}}
 
   /* 염주 */
   .side{display:grid;gap:14px;align-content:start;min-width:0}
@@ -158,6 +194,7 @@
   .item[aria-pressed=true]{background:var(--tint);border-color:var(--wood);box-shadow:inset 0 0 0 1px var(--wood);font-weight:700}
   .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;font-size:13px;color:var(--muted)}
 
+  @keyframes fadeOut{to{opacity:0}}
   @media (min-width:860px){
     .wrap{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
     header,.quote{grid-column:1/-1}
@@ -171,6 +208,11 @@
   @media (prefers-reduced-motion:reduce){
     .stage.breath.in #figure,.stage.breath.in #halo,.stage.breath.out #figure,.stage.breath.out #halo{transform:none}
     #figure,#halo{animation:none}
+    .lantern{animation:none}
+    .fly .lantern{animation:fadeOut 2.4s ease-in .3s both}
+    .burn .burnable{animation:fadeOut 2s linear .5s both}
+    .burn .flame{animation:none;display:none}
+    .ember{display:none}
     .buddha.bop svg,.moktak.hit #mallet,.moktak.hit #block{animation:none}
     .float{animation-duration:.7s}
   }
@@ -303,12 +345,19 @@
       <div class="rec-foot"><span id="recSummary"></span><button class="link" id="recClear" type="button" hidden>기록 지우기</button></div>
     </section>
 
+    <section class="card worry-card" aria-label="걱정 연등">
+      <h2>걱정 연등</h2>
+      <p>어쩔 수 없는 걱정은 태워 버리고, 할 수 있는 일은 작은 행동으로 바꿔 연등을 띄워요. 적은 걱정은 저장되지 않아요.</p>
+      <button class="btn start" id="startLantern" type="button">걱정 적기</button>
+    </section>
+
     <section class="card" aria-label="지금 할 일">
       <h2>지금 할 일</h2>
       <form class="todo-form" id="todoForm">
         <input type="text" id="todoText" maxlength="40" placeholder="간단한 일 하나" aria-label="할 일">
         <button class="btn start" type="submit">추가</button>
       </form>
+      <div class="chips" id="todoChips" role="group" aria-label="추천 할 일"></div>
       <ul class="todos" id="todos"></ul>
       <div class="rec-foot"><span id="todoLeft"></span><button class="link" id="todoClear" type="button" hidden>완료 지우기</button></div>
     </section>
@@ -667,14 +716,16 @@ var sessions=Array.isArray(saved.sessions)?saved.sessions.filter(function(s){ret
 var mins=saved.mins===1?1:3;
 var sheet=$('sheet'), IN=4, OUT=6, LEAD=3;
 var ACTIONS=['물 한 잔 마시기','책상 위 정리하기','문제 한 개만 풀기','창밖 1분 바라보기','스트레칭 한 번','친구에게 말 걸기'];
+var TODO_IDEAS=['물 한 잔 마시기','문제 한 개만 풀기','오답 하나 다시 보기','영단어 5개 외우기','책상 위 정리하기','내일 준비물 챙기기','스트레칭 한 번','창밖 1분 바라보기'];
 
-function lockStage(on){$('buddha').inert=on;$('moktak').inert=on;$('startBreath').disabled=on}
+function lockStage(on){$('buddha').inert=on;$('moktak').inert=on;$('startBreath').disabled=on;$('startLantern').disabled=on}
 function openSheet(html){
   sheet.innerHTML=html; sheet.hidden=false; sheet.scrollTop=0;
   var h=sheet.querySelector('h3'); if(h){h.tabIndex=-1;h.focus({preventScroll:true})}
 }
 function closeFlow(){
-  clearInterval(flow.timer); flow.mode='idle'; flow.pre=flow.post=null;
+  clearInterval(flow.timer); clearTimeout(flow.wait); flow.mode='idle'; flow.pre=flow.post=null;
+  var ls=stage.querySelector('.lantern-scene'); if(ls) ls.remove();
   sheet.hidden=true; sheet.innerHTML=''; $('guide').hidden=true; $('stop').hidden=true;
   document.querySelector('.merit').hidden=false;
   stage.classList.remove('breath','in','out'); lockStage(false);
@@ -783,6 +834,89 @@ $('recClear').onclick=function(){
 };
 $('startBreath').onclick=begin;
 
+/* ---------- 걱정 연등 ---------- */
+function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+function fireSound(sec){
+  var a=audio(); if(!a) return;
+  var t=a.currentTime+.01, i, n=a.createBufferSource(), lp=a.createBiquadFilter(), g=a.createGain();
+  n.buffer=noiseBuf; n.loop=true; lp.type='lowpass'; lp.frequency.value=520;
+  g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.09,t+.6);
+  g.gain.setValueAtTime(.09,t+sec-.7); g.gain.exponentialRampToValueAtTime(.0001,t+sec);
+  n.connect(lp); lp.connect(g); route(a,g,0); n.start(t); n.stop(t+sec+.05);
+  for(i=0;i<Math.round(sec*11);i++){
+    contact(a,1400+Math.random()*2800,1,.008+Math.random()*.022,.05+Math.random()*.13,(Math.random()-.5)*.9,t+Math.random()*sec);
+  }
+}
+function flySound(){
+  var a=audio(); if(!a) return;
+  var t=a.currentTime+.01, n=a.createBufferSource(), bp=a.createBiquadFilter(), g=a.createGain();
+  n.buffer=noiseBuf; n.loop=true; bp.type='bandpass'; bp.Q.value=.8;
+  bp.frequency.setValueAtTime(260,t); bp.frequency.exponentialRampToValueAtTime(1100,t+3);
+  g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.07,t+1); g.gain.exponentialRampToValueAtTime(.0001,t+3.2);
+  n.connect(bp); bp.connect(g); route(a,g,0); n.start(t); n.stop(t+3.3);
+  moktakSound(.45);
+}
+function askWorry(){
+  audio(); lockStage(true); flow.mode='worry';
+  stage.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});
+  openSheet('<h3>어떤 걱정이 있나요?</h3><p>한 줄이면 충분해요. 저장되지 않아요.</p><input type="text" id="wText" maxlength="40" placeholder="예: 이번 시험 점수가 걱정돼요" aria-label="걱정"><div class="sheet-foot"><button class="btn" type="button" id="wCancel">취소</button><button class="btn start" type="button" id="wNext" disabled>연등에 담기</button></div>');
+  var input=$('wText'), next=$('wNext');
+  input.oninput=function(){next.disabled=!input.value.trim()};
+  input.onkeydown=function(e){if(e.key==='Enter'&&!next.disabled){e.preventDefault();next.click()}};
+  next.onclick=function(){askControl(input.value.trim())};
+  $('wCancel').onclick=closeFlow;
+}
+function askControl(worry){
+  openSheet('<h3>내가 어쩔 수 있는 일인가요?</h3><p class="worry-echo">“'+esc(worry)+'”</p><div class="choice"><button type="button" id="cNo">어쩔 수 없어요<small>불태워 버리기</small></button><button type="button" id="cYes">할 수 있는 게 있어요<small>작은 행동으로 바꾸기</small></button></div><div class="sheet-foot"><button class="btn" type="button" id="wCancel">취소</button></div>');
+  $('cNo').onclick=function(){burn(worry)};
+  $('cYes').onclick=function(){askSmallStep(worry)};
+  $('wCancel').onclick=closeFlow;
+}
+function askSmallStep(worry){
+  openSheet('<h3>지금 할 수 있는 작은 행동 하나는요?</h3><p class="worry-echo">“'+esc(worry)+'”</p><input type="text" id="wStep" maxlength="40" placeholder="5분 안에 할 수 있는 일" aria-label="작은 행동"><div class="chips" id="wChips"></div><div class="sheet-foot"><button class="btn" type="button" id="wCancel">취소</button><button class="btn start" type="button" id="wFly" disabled>할 일에 넣고 날리기</button></div>');
+  var input=$('wStep'), go=$('wFly');
+  input.oninput=function(){go.disabled=!input.value.trim()};
+  input.onkeydown=function(e){if(e.key==='Enter'&&!go.disabled){e.preventDefault();go.click()}};
+  TODO_IDEAS.slice(0,6).forEach(function(a){
+    var b=document.createElement('button');b.type='button';b.className='chip plain';b.textContent=a;
+    b.onclick=function(){input.value=a;go.disabled=false};
+    $('wChips').appendChild(b);
+  });
+  go.onclick=function(){addTodo(input.value.trim());fly(worry)};
+  $('wCancel').onclick=closeFlow;
+}
+function lanternScene(kind,worry,msg,msgDelay){
+  sheet.hidden=true; sheet.innerHTML='';
+  var el=document.createElement('div');
+  el.className='lantern-scene '+kind;
+  el.innerHTML='<div class="lantern"><div class="burnable"><div class="lantern-body">'+esc(worry)+'</div></div><div class="flame"><i></i><i></i><i></i></div></div><div class="l-msg" style="animation-delay:'+msgDelay+'s">'+msg+'</div>';
+  stage.appendChild(el);
+  return el;
+}
+function finishLantern(ms){
+  flow.wait=setTimeout(function(){closeFlow();$('startLantern').focus({preventScroll:true})},ms);
+}
+function burn(worry){
+  flow.mode='burn';
+  var el=lanternScene('burn',worry,'재가 되었어요. 이제 내려놓아도 돼요.',3.1);
+  fireSound(3.6);
+  for(var i=0;i<26;i++){
+    var e=document.createElement('i');e.className='ember';
+    e.style.setProperty('--x',(Math.random()*130-65).toFixed(0)+'px');
+    e.style.setProperty('--dx',(Math.random()*70-35).toFixed(0)+'px');
+    e.style.animationDelay=(.6+Math.random()*2.6).toFixed(2)+'s';
+    el.appendChild(e);
+  }
+  finishLantern(6000);
+}
+function fly(worry){
+  flow.mode='fly';
+  lanternScene('fly',worry,'할 일에 담았어요. 걱정은 하늘로.',1.6);
+  flySound();
+  finishLantern(5200);
+}
+$('startLantern').onclick=askWorry;
+
 /* ---------- 지금 할 일 ---------- */
 var todos=Array.isArray(saved.todos)?saved.todos.filter(function(x){return x&&typeof x.text==='string'}):
   sessions.filter(function(x){return x.action}).map(function(x){return {text:x.action,done:!!x.done}});
@@ -796,6 +930,14 @@ function renderTodos(){
     d.type='button'; d.className='del'; d.textContent='×'; d.setAttribute('aria-label',x.text+' 삭제');
     d.onclick=function(){todos.splice(todos.indexOf(x),1);save();renderTodos()};
     l.appendChild(c);l.appendChild(t);li.appendChild(l);li.appendChild(d);ul.appendChild(li);
+  });
+  var open=todos.filter(function(x){return !x.done}).map(function(x){return x.text}), box=$('todoChips');
+  box.innerHTML='';
+  TODO_IDEAS.filter(function(a){return open.indexOf(a)<0}).slice(0,6).forEach(function(a){
+    var b=document.createElement('button');
+    b.type='button';b.className='chip plain';b.textContent='+ '+a;b.setAttribute('aria-label',a+' 추가');
+    b.onclick=function(){addTodo(a)};
+    box.appendChild(b);
   });
   var left=todos.filter(function(x){return !x.done}).length, doneN=todos.length-left;
   $('todoLeft').textContent=todos.length?(left?'남은 일 '+left+'개':'모두 끝냈어요'):'';
